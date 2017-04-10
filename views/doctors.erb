@@ -1,0 +1,19 @@
+<h1>Your Current Doctor</h1>
+
+  <% if @doctors.any?() %>
+    <h3>Here are your doctors:</h3>
+
+    <ul>
+      <% @doctors.each() do |doctor| %>
+        <li><a href="/specialties/doctor/<%= doctor.id()%>"><%= doctor.name() %></a> </li>
+        <li>
+          <%= DB.exec("SELECT COUNT(*) FROM patients WHERE doctor_id = #{doctor.id()}").first().fetch("count")%>
+        </li>
+      <% end %>
+    </ul>
+
+  <% else %>
+
+      <p>There are no doctors yet!</p>
+
+  <% end %>
